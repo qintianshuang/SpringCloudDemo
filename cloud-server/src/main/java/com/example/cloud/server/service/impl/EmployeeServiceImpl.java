@@ -1,7 +1,15 @@
 package com.example.cloud.server.service.impl;
 
+import com.example.cloud.common.io.Employee;
+import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.common.service.EmployeeService;
+import com.example.cloud.server.mapper.ExpressDaoMapper;
+import com.example.cloud.service.util.RandomUtils;
+import com.example.cloud.service.util.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component(value = "empService")
 public class EmployeeServiceImpl implements EmployeeService {
