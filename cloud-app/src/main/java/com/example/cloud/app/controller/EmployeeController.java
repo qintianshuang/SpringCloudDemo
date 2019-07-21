@@ -2,11 +2,10 @@ package com.example.cloud.app.controller;
 
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
-import com.example.cloud.common.util.SpringContextUtil;
-import com.example.cloud.server.service.IEmployeeService;
+import com.example.cloud.service.config.LogUtils;
+import com.example.cloud.service.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +18,9 @@ import java.util.Map;
  */
 @RestController
 public class EmployeeController {
+
+//    private final static Logger log = Logger.getLogger(EmployeeController.class);
+
 
     @Autowired
     @Qualifier("empService")
@@ -49,20 +51,21 @@ public class EmployeeController {
 
 
         //springboot   获取上下文
-        ApplicationContext applicationContext = SpringContextUtil.getApplicationContext();
-        String[] str= applicationContext.getBeanDefinitionNames();
+//        ApplicationContext applicationContext = SpringContextUtil.getApplicationContext();
+//        String[] str= applicationContext.getBeanDefinitionNames();
 
 //        ApplicationContext context=new ClassPathXmlApplicationContext("classpath:spring-applicationContext.xml");
 //        Object user= context.getBean("userController");
 //        String[] str=context.getBeanDefinitionNames();
-        for (String string : str) {
-            System.out.println("..."+string);
-        }
+//        for (String string : str) {
+//            System.out.println("..."+string);
+//        }
 //        System.out.println("----"+user);
 
         if (!CollectionUtils.isEmpty(expressBeans)) {
             for (ExpressBean expressBean : expressBeans) {
                 System.out.println(expressBean.toString());
+                LogUtils.debug("expressBean","======expressBean=======" + expressBean.toString());
             }
             empService.insertExpress(expressBeans);
         }

@@ -3,8 +3,8 @@ package com.example.cloud.server.service.impl;
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.server.mapper.ExpressDaoMapper;
-import com.example.cloud.server.service.IEmployeeService;
-import com.example.cloud.service.config.Logger;
+import com.example.cloud.service.config.LogUtils;
+import com.example.cloud.service.service.IEmployeeService;
 import com.example.cloud.service.util.RandomUtils;
 import com.example.cloud.service.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,7 @@ import java.util.Map;
 @Service(value = "empService")
 public class EmployeeServiceImpl implements IEmployeeService {
 
-    private final static Logger log = Logger.getLogger(EmployeeServiceImpl.class);
-
-//    @Autowired
-//    private IEmployeeRepository employeeRepository;
+//    private final static Logger log = Logger.getLogger(EmployeeServiceImpl.class);
 
     @Autowired
     private RedisUtil redisUtil;
@@ -68,12 +65,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 ////        RandomUtils.randomID();
 //        System.out.println(s);
 //
-        log.debug("=============expressBeans==============" + expressBeans);
+        LogUtils.debug("expressBeans","=============expressBeans==============" + expressBeans);
         expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小春", 12, "外卖", "微课有限公司"));
         expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小红", 13, "文员", "墨色有限公司"));
         expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小绿", 14, "工程师", "太阳有限公司"));
         expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小紫", 15, "教练", "噢噢有限公司"));
-//
+        LogUtils.debug("expressBeans","=============expressBeans==============" + expressBeans);
         //查出数据库中已经存在的信息
         List<ExpressBean> expressBeanList = expressMapper.queryExpress();
         Map<String, ExpressBean> map = new HashMap<>();

@@ -1,6 +1,6 @@
 package com.example.cloud.server.test;
 
-import com.example.cloud.server.service.IEmployeeService;
+import com.example.cloud.service.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //import com.example.cloud.service.util.RedisUtil;
