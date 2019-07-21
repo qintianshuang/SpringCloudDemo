@@ -21,4 +21,9 @@ public class RandomUtils {
         String str = System.currentTimeMillis() + String.valueOf(r).substring(1);
         return str;
     }
+
+    public static void main(String[] args) {
+        String s = RandomUtils.randomID();
+        System.out.println(s);
+    }
 }

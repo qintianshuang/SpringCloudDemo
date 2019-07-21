@@ -1,11 +1,11 @@
-package com.example.cloud.common.service;
+package com.example.cloud.server.service;
 
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
 
 import java.util.List;
 
-public interface EmployeeService {
+public interface IEmployeeService {
 
     List<Employee> queryEmployee();
 

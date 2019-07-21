@@ -35,11 +35,11 @@
             <artifactId>cloud-web-util</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.example.cloud</groupId>-->
-<!--            <artifactId>cloud-server</artifactId>-->
-<!--            <version>0.0.1-SNAPSHOT</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.example.cloud</groupId>
+            <artifactId>cloud-server</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

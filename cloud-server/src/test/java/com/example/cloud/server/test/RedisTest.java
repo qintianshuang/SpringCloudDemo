@@ -1,6 +1,6 @@
 package com.example.cloud.server.test;
 
-import com.example.cloud.common.service.EmployeeService;
+import com.example.cloud.server.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 //import com.example.cloud.service.util.RedisUtil;
@@ -12,7 +12,7 @@ public class RedisTest {
 //    private RedisUtil redisUtil;
 
     @Autowired
-    private EmployeeService employeeService;
+    private IEmployeeService employeeService;
     //
     //@Test
     //public void test(){
