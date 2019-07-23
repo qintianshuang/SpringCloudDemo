@@ -27,7 +27,7 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("新一代UI服务平台")
+                .title("小肥羊服务平台")
                 .description("更多UI服务请关注：www.baidu.com")
                 .termsOfServiceUrl("www.2345.com")
                 .contact("QTS")

@@ -8,19 +8,5 @@ server:
 spring:
   application:
     name: cloud-feign
-#    profiles:
-#      active: jdbc
-#      cloud:
-#        config:
-#          server:
-#            default-label: dev
-#            jdbc:
-#              sql: SELECT * FROM emp_info
-#####################################################################################################
-# mysql 属性配置
-#datasource:
-#  driver-class-name: com.mysql.jdbc.Driver
-#  url: jdbc:mysql://127.0.0.1:3306/test
-#  username: root
-#  password: 716622
-#####################################################################################################
+  main:
+    allow-bean-definition-overriding: true

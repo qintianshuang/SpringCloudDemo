@@ -1,7 +1,9 @@
 package com.example.cloud.server.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
+import com.example.cloud.common.util.JsonUtil;
 import com.example.cloud.server.mapper.ExpressDaoMapper;
 import com.example.cloud.service.config.LogUtils;
 import com.example.cloud.service.service.IEmployeeService;
@@ -51,26 +53,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
      */
     @Override
     public void insertExpress(List<ExpressBean> expressBeans) {
-        String k = "apple";
-////        System.out.println(redisUtil.toString());
-////        Object value = redisUtil.getValue(k);
-//        String value = "";
-//        System.out.println("------shardedJedisStr--------" + value + "--------------");
-//        System.out.println("------shardedJedisStr--------" + value + "--------------");
-//        System.out.println("-------jedisStr-------" + value + "--------------");
-//        System.out.println("-------jedisStr-------" + value + "--------------");
-//
-////        List<ExpressBean> expressBeans = new ArrayList<>();
-//        String s = "";
-////        RandomUtils.randomID();
-//        System.out.println(s);
-//
-        LogUtils.debug("expressBeans","=============expressBeans==============" + expressBeans);
-        expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小春", 12, "外卖", "微课有限公司"));
-        expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小红", 13, "文员", "墨色有限公司"));
-        expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小绿", 14, "工程师", "太阳有限公司"));
-        expressBeans.add(new ExpressBean(RandomUtils.randomID(), "小紫", 15, "教练", "噢噢有限公司"));
-        LogUtils.debug("expressBeans","=============expressBeans==============" + expressBeans);
+        System.out.println(redisUtil.toString());
+        redisUtil.setValue("apple","apple");
+        redisUtil.setValue("banana","banana");
+        Object apple = redisUtil.getValue("apple");
+        Object banana = redisUtil.getValue("banana");
+        System.out.println("------apple--------" + apple + "--------------");
+        System.out.println("------banana--------" + banana + "--------------");
+        for (ExpressBean expressBean : expressBeans) {
+            expressBean.setEmpNo(RandomUtils.randomID());
+        }
         //查出数据库中已经存在的信息
         List<ExpressBean> expressBeanList = expressMapper.queryExpress();
         Map<String, ExpressBean> map = new HashMap<>();
@@ -79,7 +71,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
             map.put(expressBean.getEmpNo(), expressBean);
         }
         List<ExpressBean> expressBeanArrayList = new ArrayList<>();
-//
 //        //遍历要插入的数据
         if (!CollectionUtils.isEmpty(expressBeans)) {
             for (int i = 0; i < expressBeans.size(); i++) {
@@ -100,7 +91,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
             System.out.println(index);
             for (ExpressBean expressBean : expressBeanArrayList) {
                 String key = "emp" + expressBean.getEmpNo() + "info";
-                redisUtil.setValue(key,expressBean);
+                System.out.println("JsonUtil.getObjectToJson(expressBean)===" + JsonUtil.getObjectToJson(expressBean));
+                redisUtil.setValue(key,JsonUtil.getObjectToJson(expressBean));
+            }
+
+            for (ExpressBean expressBean : expressBeanArrayList) {
+                String key = "emp" + expressBean.getEmpNo() + "info";
+                Object value = redisUtil.getValue(key);
+//                ExpressBean value1 = (ExpressBean) value;
+//                JsonUtil.getValueToBean("",ExpressBean.class);
+//                System.out.println(value1);
+                System.out.println(value);
             }
         }
     }

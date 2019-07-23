@@ -1,4 +1,4 @@
-package com.example.cloud.feign.bean;
+package com.example.cloud.web.bean.employee;
 
 public class ExpressBean {
 

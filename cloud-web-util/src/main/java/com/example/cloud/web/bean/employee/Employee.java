@@ -1,4 +1,4 @@
-package com.example.cloud.feign.bean;
+package com.example.cloud.web.bean.employee;
 
 import java.math.BigDecimal;
 

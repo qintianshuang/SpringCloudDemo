@@ -1,13 +1,9 @@
 package com.example.cloud.feign.controller;
 
-import com.example.cloud.common.util.PoiUtils;
-import com.example.cloud.feign.feign.FeignUI;
+import com.example.cloud.feign.feign.FeignPoiUI;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,34 +24,16 @@ import javax.servlet.http.HttpServletResponse;
  * @ApiImplicitParam：一个请求参数
  * @ApiImplicitParams：多个请求参数
  */
-@Api(value = "平台模型", description = "平台入口")
+@Api(value = "计划信息", description = "计划信息")
 @RestController
-public class PlanController {
+public class PoiController {
 
     @Autowired
-    private FeignUI feignUI;
-
-    @Value("${server.port}")
-    public String port;
-
-    @Value("${app.hello}")
-    private String hello;
-
-
-    @ApiOperation(value = "计划信息", notes = "RestFul风格的请求")
-    //@ApiImplicitParams({@ApiImplicitParam(name = "classNo", value = "班级编号", required = true, dataType = "String"),
-    //})
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String sayHi(@RequestParam(value = "name") String name, @RequestParam(value = "classNo") String classNo) {
-        System.out.println("++++++++++++++");
-        return feignUI.sayHiFromClientOne(name, classNo);
-    }
+    private FeignPoiUI feignUI;
 
     @ApiOperation(value = "下载文件", notes = "文件导出",produces="application/octet-stream")
-    @GetMapping("/download")
+    @GetMapping("/downloadFile")
     public void downloadFile(HttpServletResponse response) throws Exception {
-        String fileName = "文件下载";
-        Workbook workbook = new HSSFWorkbook();
-        PoiUtils.outExcel(response, fileName, workbook);
+        feignUI.downloadFile(response);
     }
 }
