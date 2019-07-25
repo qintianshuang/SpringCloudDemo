@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IEmployeeService {
 
-    List<Employee> queryEmployee();
-
-    List<ExpressBean> queryExpress();
+    List<Employee> queryEmployeeList();
 
     void insertExpress(List<ExpressBean> expressBeans);
+
+    Employee queryAppointEmployee(String name);
 }

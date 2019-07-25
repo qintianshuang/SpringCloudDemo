@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.cloud.server.mapper.ExpressDaoMapper">
+<mapper namespace="com.example.cloud.server.mapper.employee.ExpressDaoMapper">
     <resultMap  id="resultMap" type="com.example.cloud.common.io.Employee">
         <result property="employeeId" column="employee_id" jdbcType="VARCHAR"/>
         <result property="firstName" column="first_name" jdbcType="VARCHAR"/>

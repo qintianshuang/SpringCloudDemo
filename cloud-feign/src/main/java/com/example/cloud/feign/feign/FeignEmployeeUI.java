@@ -21,11 +21,8 @@ public interface FeignEmployeeUI {
     @GetMapping(value = "/queryAppointEmployee")
     String queryAppointEmployee(@RequestParam("name") String name);
 
-    @GetMapping(value = "/queryEmployee")
-    List<ExpressBean> queryEmployee();
-
-    @PostMapping(value = "/creatEmployee",consumes = "application/json")
-    String creatEmployee(@RequestBody List<ExpressBean> expressBeans);
+    @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
+    String creatEmployeeList(@RequestBody List<ExpressBean> expressBeans);
 
     @GetMapping(value = "/queryEmployeeList")
     public List<Employee> queryEmployeeList();

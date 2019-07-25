@@ -1,10 +1,10 @@
-package com.example.cloud.server.service.impl;
+package com.example.cloud.server.service.impl.employee;
 
 import com.example.cloud.common.config.Logger;
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.common.util.JsonUtil;
-import com.example.cloud.server.mapper.ExpressDaoMapper;
+import com.example.cloud.server.mapper.employee.ExpressDaoMapper;
 import com.example.cloud.service.service.IEmployeeService;
 import com.example.cloud.service.util.RandomUtils;
 import com.example.cloud.service.util.RedisUtil;
@@ -34,21 +34,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
      * @return
      */
     @Override
-    public List<Employee> queryEmployee() {
+    public List<Employee> queryEmployeeList() {
         List<Employee> employeeList = expressMapper.queryEmployee();
         log.debug("employeeList" + employeeList);
         return employeeList;
-    }
-
-    /***
-     *
-     * @return
-     */
-    @Override
-    public List<ExpressBean> queryExpress() {
-        List<ExpressBean> expressBeanList = expressMapper.queryExpress();
-        log.debug("expressBeanList" + expressBeanList);
-        return expressBeanList;
     }
 
     /***
@@ -104,5 +93,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 log.debug("value||" + value);
             }
         }
+    }
+
+    @Override
+    public Employee queryAppointEmployee(String name) {
+        return null;
     }
 }

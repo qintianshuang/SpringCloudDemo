@@ -29,8 +29,8 @@ public class EmployeeController {
 
 
     @ApiOperation(value = "新增人员信息", notes = "新增人员信息",produces="application/octet-stream")
-    @PostMapping(value = "/creatEmployee",consumes = "application/json")
-    public String creatEmployee() {
+    @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
+    public String creatEmployeeList() {
 
         List<ExpressBean> expressBeans = new ArrayList<>();
         expressBeans.add(new ExpressBean("","小春","12","外卖","微课有限公司"));
@@ -38,14 +38,7 @@ public class EmployeeController {
         expressBeans.add(new ExpressBean("","小绿","14","工程师","太阳有限公司"));
         expressBeans.add(new ExpressBean("","小紫","15","教练","噢噢有限公司"));
 
-        return feignUI.creatEmployee(expressBeans);
-    }
-
-    @ApiOperation(value = "查询人员信息", notes = "查询人员信息",produces="application/octet-stream")
-    @GetMapping(value = "/queryEmployee")
-    public List<ExpressBean> queryEmployee() {
-        System.out.println("query被调用了");
-        return feignUI.queryEmployee();
+        return feignUI.creatEmployeeList(expressBeans);
     }
 
     @ApiOperation(value = "获取员工信息", notes = "获取员工信息",produces="application/octet-stream")
