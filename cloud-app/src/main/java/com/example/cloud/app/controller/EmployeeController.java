@@ -44,14 +44,8 @@ public class EmployeeController {
         return expressBeanList;
     }
 
-    @PostMapping(value = "/creatEmployee", consumes = "application/json")
-    public String creatEmployee(@RequestBody List<ExpressBean> expressBeans) {
-        if (!CollectionUtils.isEmpty(expressBeans)) {
-            for (ExpressBean expressBean : expressBeans) {
-                log.debug("expressBean.toString()||" +expressBean.toString());
-            }
+    @PostMapping(value = "/creatEmployeeList", consumes = "application/json")
+    public void creatEmployeeList(@RequestBody List<ExpressBean> expressBeans) {
             empService.insertExpress(expressBeans);
-        }
-        return null;
     }
 }

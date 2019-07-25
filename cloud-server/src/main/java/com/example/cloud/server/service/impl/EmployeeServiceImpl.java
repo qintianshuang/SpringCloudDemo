@@ -62,8 +62,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
         redisUtil.setValue("banana","banana");
         Object apple = redisUtil.getValue("apple");
         Object banana = redisUtil.getValue("banana");
-        log.debug("expressBeanList||" + apple + "--------------");
-        log.debug("expressBeanList||" + banana + "--------------");
+        log.debug("apple||" + apple + "--------------");
+        log.debug("banana||" + banana + "--------------");
         for (ExpressBean expressBean : expressBeans) {
             expressBean.setEmpNo(RandomUtils.randomID());
         }
