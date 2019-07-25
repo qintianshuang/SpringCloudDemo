@@ -1,4 +1,4 @@
-package com.example.cloud.server.test;
+package com.example.cloud.common.test;
 
 import java.util.*;
 

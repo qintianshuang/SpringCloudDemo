@@ -1,4 +1,5 @@
-package com.example.cloud.service.config;
+package com.example.cloud.common.config;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;

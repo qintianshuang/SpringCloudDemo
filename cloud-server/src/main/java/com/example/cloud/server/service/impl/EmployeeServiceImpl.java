@@ -1,11 +1,10 @@
 package com.example.cloud.server.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.example.cloud.common.config.Logger;
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.common.util.JsonUtil;
 import com.example.cloud.server.mapper.ExpressDaoMapper;
-import com.example.cloud.service.config.LogUtils;
 import com.example.cloud.service.service.IEmployeeService;
 import com.example.cloud.service.util.RandomUtils;
 import com.example.cloud.service.util.RedisUtil;
@@ -22,6 +21,8 @@ import java.util.Map;
 @Service(value = "empService")
 public class EmployeeServiceImpl implements IEmployeeService {
 
+    private final static Logger log = Logger.getLogger(EmployeeServiceImpl.class);
+
     @Autowired
     private RedisUtil redisUtil;
 
@@ -35,7 +36,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<Employee> queryEmployee() {
         List<Employee> employeeList = expressMapper.queryEmployee();
-        System.out.println(employeeList);
+        log.debug("employeeList" + employeeList);
         return employeeList;
     }
 
@@ -46,7 +47,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     @Override
     public List<ExpressBean> queryExpress() {
         List<ExpressBean> expressBeanList = expressMapper.queryExpress();
-        System.out.println(expressBeanList);
+        log.debug("expressBeanList" + expressBeanList);
         return expressBeanList;
     }
 
@@ -56,13 +57,13 @@ public class EmployeeServiceImpl implements IEmployeeService {
      */
     @Override
     public void insertExpress(List<ExpressBean> expressBeans) {
-        System.out.println(redisUtil.toString());
+        log.debug("expressBeanList||" + redisUtil.toString());
         redisUtil.setValue("apple","apple");
         redisUtil.setValue("banana","banana");
         Object apple = redisUtil.getValue("apple");
         Object banana = redisUtil.getValue("banana");
-        System.out.println("------apple--------" + apple + "--------------");
-        System.out.println("------banana--------" + banana + "--------------");
+        log.debug("expressBeanList||" + apple + "--------------");
+        log.debug("expressBeanList||" + banana + "--------------");
         for (ExpressBean expressBean : expressBeans) {
             expressBean.setEmpNo(RandomUtils.randomID());
         }
@@ -82,25 +83,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
                     //将不存在的新数据保存到新集合
                     expressBeanArrayList.add(expressBeans.get(i));
                 }else {
-                    System.out.println(expressBeans.get(i));
+                    log.debug("expressBeanList||" + expressBeans.get(i));
                 }
             }
         }
 
-        System.out.println(expressBeanArrayList);
+        log.debug("expressBeanArrayList||" + expressBeanArrayList);
         if (!CollectionUtils.isEmpty(expressBeanArrayList)) {
             //如果新数据不为空，插入到数据库
             Integer index = expressMapper.insertExpress(expressBeanArrayList);
-            System.out.println(index);
+            log.debug("expressBeanList||" + index);
             for (ExpressBean expressBean : expressBeanArrayList) {
                 String key = "emp" + expressBean.getEmpNo() + "info";
-                System.out.println("JsonUtil.getObjectToJson(expressBean)===" + JsonUtil.getObjectToJson(expressBean));
+                log.debug("JsonUtil.getObjectToJson(expressBean)||" + JsonUtil.getObjectToJson(expressBean));
                 redisUtil.setValue(key,JsonUtil.getObjectToJson(expressBean));
             }
             for (ExpressBean expressBean : expressBeanArrayList) {
                 String key = "emp" + expressBean.getEmpNo() + "info";
                 Object value = redisUtil.getValue(key,ExpressBean.class);
-                System.out.println(value);
+                log.debug("value||" + value);
             }
         }
     }

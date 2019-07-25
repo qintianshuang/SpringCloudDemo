@@ -1,5 +1,6 @@
 package com.example.cloud.feign.controller;
 
+import com.example.cloud.common.config.Logger;
 import com.example.cloud.feign.feign.FeignEmployeeUI;
 import com.example.cloud.web.bean.employee.Employee;
 import com.example.cloud.web.bean.employee.ExpressBean;
@@ -14,6 +15,8 @@ import java.util.List;
 @Api(value = "人员信息", description = "人员信息")
 @RestController
 public class EmployeeController {
+
+    private final static Logger log = Logger.getLogger(EmployeeController.class);
 
     @Autowired
     FeignEmployeeUI feignUI;

@@ -1,23 +1,24 @@
 package com.example.cloud.app.controller;
 
+import com.example.cloud.common.config.Logger;
 import com.example.cloud.common.io.Employee;
 import com.example.cloud.common.io.ExpressBean;
-import com.example.cloud.service.config.LogUtils;
+import com.example.cloud.server.service.impl.EmployeeServiceImpl;
 import com.example.cloud.service.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /***
  *
  */
 @RestController
 public class EmployeeController {
+
+    private final static Logger log = Logger.getLogger(EmployeeController.class);
 
 
     @Autowired
@@ -31,9 +32,9 @@ public class EmployeeController {
 
     @GetMapping(value = "/queryEmployeeList")
     public List<Employee> queryEmployeeList() {
-        System.out.println("我被调用了");
+        log.debug("我被调用了");
         List<Employee> employees = empService.queryEmployee();
-        System.out.println(employees);
+        log.debug("employees||" + employees);
         return employees;
     }
 
@@ -47,7 +48,7 @@ public class EmployeeController {
     public String creatEmployee(@RequestBody List<ExpressBean> expressBeans) {
         if (!CollectionUtils.isEmpty(expressBeans)) {
             for (ExpressBean expressBean : expressBeans) {
-                System.out.println(expressBean.toString());
+                log.debug("expressBean.toString()||" +expressBean.toString());
             }
             empService.insertExpress(expressBeans);
         }

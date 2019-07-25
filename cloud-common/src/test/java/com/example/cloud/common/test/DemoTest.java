@@ -1,4 +1,4 @@
-//package com.example.cloud.server.test;
+package com.example.cloud.common.test;//package com.example.cloud.server.test;
 //
 //import com.example.cloud.server.controller.UserController;
 //import org.junit.Test;

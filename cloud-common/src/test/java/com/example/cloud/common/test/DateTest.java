@@ -1,6 +1,6 @@
-package com.example.cloud.service.date;
+package com.example.cloud.common.test;
 
-import com.example.cloud.service.util.DateUtils;
+import com.example.cloud.common.util.DateUtils;
 import org.junit.Test;
 
 import java.util.Date;
