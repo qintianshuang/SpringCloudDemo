@@ -28,26 +28,33 @@ public class JsonUtil {
 
     /***
      * 将Object转化为JsonObject
-     * @param json
+     * @param object
      * @return
      */
-    public static Object getObjectToJson(Object json){
-        Object o = JSONObject.toJSON(json);
+    public static Object getObjectToJson(Object object){
+        Object o = JSONObject.toJSON(object);
         return o;
     }
 
     /***
      * 将Object转化为Json
-     * @param json
+     * @param object
      * @return
      */
-    public static String getObjectToJsonStr(Object json){
-        String str = JSONObject.toJSONString(json);
+    public static String getObjectToJsonStr(Object object){
+        String str = JSONObject.toJSONString(object);
         return str;
     }
 
+    /***
+     * 将json转化为javabean
+     * @param str
+     * @param clazz
+     * @param <V>
+     * @return
+     */
     public static  <V> V getValueToBean(String str, Class clazz) {
-        Object object = JSONObject.parseObject(str);
+        Object object = JSONObject.parseObject(str,clazz);
         return (V)object;
     }
 }

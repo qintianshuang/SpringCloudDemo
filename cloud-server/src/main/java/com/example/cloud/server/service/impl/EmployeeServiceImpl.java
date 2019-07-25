@@ -22,31 +22,34 @@ import java.util.Map;
 @Service(value = "empService")
 public class EmployeeServiceImpl implements IEmployeeService {
 
-//    private final static Logger log = Logger.getLogger(EmployeeServiceImpl.class);
-
     @Autowired
     private RedisUtil redisUtil;
 
     @Autowired
     private ExpressDaoMapper expressMapper;
-//
+
+    /***
+     *
+     * @return
+     */
     @Override
     public List<Employee> queryEmployee() {
-//        List<Employee> employeeList = expressMapper.queryEmployee();
-//        System.out.println(employeeList);
-//        return employeeList;
-        return null;
+        List<Employee> employeeList = expressMapper.queryEmployee();
+        System.out.println(employeeList);
+        return employeeList;
     }
-//
-//    //
+
+    /***
+     *
+     * @return
+     */
     @Override
     public List<ExpressBean> queryExpress() {
-//        List<ExpressBean> expressBeanList = expressMapper.queryExpress();
-////        System.out.println(expressBeanList);
-////        return expressBeanList;
-        return null;
+        List<ExpressBean> expressBeanList = expressMapper.queryExpress();
+        System.out.println(expressBeanList);
+        return expressBeanList;
     }
-//
+
     /***
      *
      * @param expressBeans
@@ -94,13 +97,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 System.out.println("JsonUtil.getObjectToJson(expressBean)===" + JsonUtil.getObjectToJson(expressBean));
                 redisUtil.setValue(key,JsonUtil.getObjectToJson(expressBean));
             }
-
             for (ExpressBean expressBean : expressBeanArrayList) {
                 String key = "emp" + expressBean.getEmpNo() + "info";
-                Object value = redisUtil.getValue(key);
-//                ExpressBean value1 = (ExpressBean) value;
-//                JsonUtil.getValueToBean("",ExpressBean.class);
-//                System.out.println(value1);
+                Object value = redisUtil.getValue(key,ExpressBean.class);
                 System.out.println(value);
             }
         }

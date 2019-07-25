@@ -16,6 +16,7 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+cloud-parent.iml
 
 ### NetBeans ###
 /nbproject/private/
@@ -27,4 +28,3 @@ HELP.md
 
 ### VS Code ###
 .vscode/
-/cloud-common.iml

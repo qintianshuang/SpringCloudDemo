@@ -56,14 +56,15 @@ public class JsonTest {
         ExpressBean expressBean1 = JSONObject.parseObject(s, new TypeReference<ExpressBean>() {
         });
         System.out.println(expressBean1);
-        ExpressBean value = JsonTest.getValue(s);
+        Class<ExpressBean> expressBeanClass = ExpressBean.class;
+        ExpressBean value = JsonTest.getValue(s,expressBeanClass);
         System.out.println("value:" + value);
         ExpressBean expressBean2 = JSONObject.parseObject(s, ExpressBean.class);
         System.out.println(expressBean2);
     }
 
-    public static <V> V getValue(String s) {
-        Object o = JSONObject.parseObject(s);
+    public static <V> V getValue(String s,Class clazz) {
+        Object o = JSONObject.parseObject(s,clazz);
 //        System.out.println(v);
 //        v = JSONObject.parseObject(s, new TypeReference<V>() {
 //        });

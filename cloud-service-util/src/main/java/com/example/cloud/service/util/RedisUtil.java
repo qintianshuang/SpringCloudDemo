@@ -117,43 +117,38 @@ public class RedisUtil {
 
     }
 
-    ///**
-    // *
-    // * getV(获取redis数据信息)
-    // * @Title: getV
-    // * @param @param key
-    // * @param index 具体数据库 0:常用数据存储      3：session数据存储
-    // * @param @return
-    // * @return V
-    // * @throws
-    // */
-    //@SuppressWarnings("unchecked")
-    //public  <V> V getValue(String key,int index) {
-    //    String value = "";
-    //    Jedis jedis = null;
-    //    try {
-    //        jedis = jedisPool.getResource();
-    //        jedis.select(index);
-    //        value = jedis.get(key);
-    //    } catch (Exception e) {
-    //        log.error("getV初始化jedis异常：" + e);
-    //        if (jedis != null) {
-    //            //jedisPool.returnBrokenResource(jedis);
-    //            jedis.close();
-    //        }
-    //    } finally {
-    //        closeJedis(jedis);
-    //    }
-    //    return (V) JSONObject.parse(value);
-    //}
-    //
-
+    /**
+     *
+     * getV(获取redis数据信息)
+     * @Title: getV
+     * @param @param key
+     * @param @param index 具体数据库 0:常用数据存储  3：session数据存储
+     * @param @return
+     * @return V
+     * @throws
+     */
+    @SuppressWarnings("unchecked")
+    public  <V> V getValue(String key,int index) {
+        String value = "";
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            jedis.select(index);
+            value = jedis.get(key);
+        } catch (Exception e) {
+            log.error("getV初始化jedis异常：" + e);
+            if (jedis != null) {
+                jedis.close();
+            }
+        } finally {
+            closeJedis(jedis);
+        }
+        return (V) JSONObject.parse(value);
+    }
 
     /**
      * getV(获取redis数据信息)
-     *
      * @param @param  key
-     *                //* @param index 具体数据库 0:常用数据存储      3：session数据存储
      * @param @return
      * @return V
      * @throws
@@ -169,22 +164,47 @@ public class RedisUtil {
         } catch (Exception e) {
             log.error("getV初始化jedis异常：" + e);
             if (jedis != null) {
-                //jedisPool.returnBrokenResource(jedis);
                 jedis.close();
             }
         } finally {
             closeJedis(jedis);
         }
-        //Object parse = JSONObject.parse(value);
-        //System.out.println(parse);
+        try {
+            return (V) JSONObject.parse(value);
+        } catch (JSONException e) {
+            return (V) value;
+        }
+    }
+
+    /**
+     * getV(获取redis数据信息)
+     * @param @param  key
+     * @param @param clazz 具体转化后的javabean
+     * @param @return
+     * @return V
+     * @throws
+     * @Title: getV
+     */
+    @SuppressWarnings("unchecked")
+    public <V> V getValue(String key,Class clazz) {
+        String value = "";
+        Jedis jedis = null;
+        try {
+            jedis = jedisPool.getResource();
+            value = jedis.get(key);
+        } catch (Exception e) {
+            log.error("getV初始化jedis异常：" + e);
+            if (jedis != null) {
+                jedis.close();
+            }
+        } finally {
+            closeJedis(jedis);
+        }
         try {
             System.out.println(value);
             JSONObject.parse(value);
-            JSONObject.parseObject(value);
-//           Object object = JSONObject.parseObject(value,new TypeReference<V>() {});
-//            new TypeReference<Student>() {}
-            return (V) JSONObject.parse(value);
-//            return (V) JSONObject.parseObject(value, new TypeReference<V>() {});
+            Object object = JSONObject.parseObject(value, clazz);
+            return (V) object;
         } catch (JSONException e) {
             return (V) value;
         }
