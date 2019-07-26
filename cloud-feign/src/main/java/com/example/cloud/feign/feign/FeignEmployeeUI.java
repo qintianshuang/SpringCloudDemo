@@ -18,12 +18,10 @@ import java.util.List;
 @FeignClient(value = "cloud-app")
 public interface FeignEmployeeUI {
 
-    @GetMapping(value = "/queryAppointEmployee")
-    String queryAppointEmployee(@RequestParam("name") String name);
+    @GetMapping(value = "/queryEmployeeByName")
+    String queryEmployeeByName(@RequestParam("name") String name);
 
     @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
-    String creatEmployeeList(@RequestBody List<ExpressBean> expressBeans);
+    String creatEmployeeList(@RequestBody List<Employee> expressBeans);
 
-    @GetMapping(value = "/queryEmployeeList")
-    public List<Employee> queryEmployeeList();
 }

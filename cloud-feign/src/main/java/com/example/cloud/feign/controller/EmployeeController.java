@@ -3,7 +3,6 @@ package com.example.cloud.feign.controller;
 import com.example.cloud.common.config.Logger;
 import com.example.cloud.feign.feign.FeignEmployeeUI;
 import com.example.cloud.web.bean.employee.Employee;
-import com.example.cloud.web.bean.employee.ExpressBean;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +20,17 @@ public class EmployeeController {
     @Autowired
     FeignEmployeeUI feignUI;
 
-    @ApiOperation(value = "查询指定人员信息", notes = "查询指定人员信息",produces="application/octet-stream")
-    @GetMapping(value = "/queryAppointEmployee")
-    public String queryAppointEmployee(@RequestParam String name) {
-        return feignUI.queryAppointEmployee(name);
+    @ApiOperation(value = "根据名称查询指定人员信息", notes = "根据名称查询指定人员信息",produces="application/octet-stream")
+    @GetMapping(value = "/queryEmployeeByName")
+    public String queryEmployeeByName(@RequestParam String name) {
+        return feignUI.queryEmployeeByName(name);
     }
-
 
     @ApiOperation(value = "新增人员信息", notes = "新增人员信息",produces="application/octet-stream")
     @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
     public String creatEmployeeList() {
-
-        List<ExpressBean> expressBeans = new ArrayList<>();
-        expressBeans.add(new ExpressBean("","小春","12","外卖","微课有限公司"));
-        expressBeans.add(new ExpressBean("","小红","13","文员","墨色有限公司"));
-        expressBeans.add(new ExpressBean("","小绿","14","工程师","太阳有限公司"));
-        expressBeans.add(new ExpressBean("","小紫","15","教练","噢噢有限公司"));
-
-        return feignUI.creatEmployeeList(expressBeans);
-    }
-
-    @ApiOperation(value = "获取员工信息", notes = "获取员工信息",produces="application/octet-stream")
-    @GetMapping(value = "/queryEmployeeList")
-    public List<Employee> queryEmployeeList(){
-        System.out.println("list被调用了");
-        return feignUI.queryEmployeeList();
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(new Employee("","小红",12,"420528199901172431","湖北省宜昌市长阳县","深圳市宝安区新安一路晶美花园","18665892257","2065114232@qq.com"));
+        return feignUI.creatEmployeeList(employeeList);
     }
 }

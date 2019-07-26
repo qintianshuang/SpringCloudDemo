@@ -2,12 +2,13 @@ package com.example.cloud.server.service.impl.employee;
 
 import com.example.cloud.common.config.Logger;
 import com.example.cloud.common.io.Employee;
-import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.common.util.JsonUtil;
-import com.example.cloud.server.mapper.employee.ExpressDaoMapper;
+import com.example.cloud.server.mapper.employee.EmployeeDaoMapper;
+import com.example.cloud.server.po.employee.EmployeePO;
 import com.example.cloud.service.service.IEmployeeService;
 import com.example.cloud.service.util.RandomUtils;
 import com.example.cloud.service.util.RedisUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -27,76 +28,81 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private RedisUtil redisUtil;
 
     @Autowired
-    private ExpressDaoMapper expressMapper;
+    private EmployeeDaoMapper employeeDaoMapper;
 
     /***
      *
      * @return
      */
     @Override
-    public List<Employee> queryEmployeeList() {
-        List<Employee> employeeList = expressMapper.queryEmployee();
+    public List<Employee> queryEmployeeByName(String empName) {
+        List<Employee> employeeList = new ArrayList<>();
+        if (StringUtils.isEmpty(empName)){
+            return employeeList;
+        }
+        List<EmployeePO> employeePOList = employeeDaoMapper.queryEmployeeByName(empName);
+        if (!CollectionUtils.isEmpty(employeePOList)) {
+            for (EmployeePO employeePO : employeePOList) {
+                Employee employee = new Employee();
+                BeanUtils.copyProperties(employeePO, employee);
+                employeeList.add(employee);
+                String key = "emp" + employee.getEmpNo() + "info";
+                Object value = redisUtil.getValue(key, Employee.class);
+                log.debug("value||" + value);
+            }
+        }
         log.debug("employeeList" + employeeList);
         return employeeList;
     }
 
     /***
      *
-     * @param expressBeans
+     * @param employeeList
      */
     @Override
-    public void insertExpress(List<ExpressBean> expressBeans) {
-        log.debug("expressBeanList||" + redisUtil.toString());
-        redisUtil.setValue("apple","apple");
-        redisUtil.setValue("banana","banana");
-        Object apple = redisUtil.getValue("apple");
-        Object banana = redisUtil.getValue("banana");
-        log.debug("apple||" + apple + "--------------");
-        log.debug("banana||" + banana + "--------------");
-        for (ExpressBean expressBean : expressBeans) {
-            expressBean.setEmpNo(RandomUtils.randomID());
+    public void insertEmployeeList(List<Employee> employeeList) {
+        for (Employee employee : employeeList) {
+            employee.setEmpNo(RandomUtils.randomID());
         }
         //查出数据库中已经存在的信息
-        List<ExpressBean> expressBeanList = expressMapper.queryExpress();
-        Map<String, ExpressBean> map = new HashMap<>();
+        List<EmployeePO> expressBeanList = employeeDaoMapper.queryEmployeeList();
+        Map<String, Employee> map = new HashMap<>();
         //将查出来的数据放入map中
-        for (ExpressBean expressBean : expressBeanList) {
-            map.put(expressBean.getEmpNo(), expressBean);
+        for (EmployeePO employeePO : expressBeanList) {
+            Employee employee = new Employee();
+            BeanUtils.copyProperties(employeePO, employee);
+            map.put(employee.getEmpNo(), employee);
         }
-        List<ExpressBean> expressBeanArrayList = new ArrayList<>();
-//        //遍历要插入的数据
-        if (!CollectionUtils.isEmpty(expressBeans)) {
-            for (int i = 0; i < expressBeans.size(); i++) {
+        List<Employee> employeeArrayList = new ArrayList<>();
+       //遍历要插入的数据
+        if (!CollectionUtils.isEmpty(employeeList)) {
+            for (int i = 0; i < employeeList.size(); i++) {
                 //对比数据库的数据，过滤点重复的数据
-                if (StringUtils.isEmpty(map.get(expressBeans.get(i).getEmpNo()))) {
+                if (StringUtils.isEmpty(map.get(employeeList.get(i).getEmpNo()))) {
                     //将不存在的新数据保存到新集合
-                    expressBeanArrayList.add(expressBeans.get(i));
-                }else {
-                    log.debug("expressBeanList||" + expressBeans.get(i));
+                    employeeArrayList.add(employeeList.get(i));
                 }
             }
         }
-
-        log.debug("expressBeanArrayList||" + expressBeanArrayList);
-        if (!CollectionUtils.isEmpty(expressBeanArrayList)) {
+        log.debug("expressBeanArrayList||" + employeeArrayList);
+        if (!CollectionUtils.isEmpty(employeeArrayList)) {
             //如果新数据不为空，插入到数据库
-            Integer index = expressMapper.insertExpress(expressBeanArrayList);
-            log.debug("expressBeanList||" + index);
-            for (ExpressBean expressBean : expressBeanArrayList) {
-                String key = "emp" + expressBean.getEmpNo() + "info";
-                log.debug("JsonUtil.getObjectToJson(expressBean)||" + JsonUtil.getObjectToJson(expressBean));
-                redisUtil.setValue(key,JsonUtil.getObjectToJson(expressBean));
-            }
-            for (ExpressBean expressBean : expressBeanArrayList) {
-                String key = "emp" + expressBean.getEmpNo() + "info";
-                Object value = redisUtil.getValue(key,ExpressBean.class);
-                log.debug("value||" + value);
+            Integer index = employeeDaoMapper.insertEmployeeList(employeeArrayList);
+            for (Employee employee : employeeArrayList) {
+                String key = "emp" + employee.getEmpNo() + "info";
+                log.debug("JsonUtil.getObjectToJson(expressBean)||" + JsonUtil.getObjectToJson(employee));
+                redisUtil.setValue(key, JsonUtil.getObjectToJson(employee));
             }
         }
     }
 
     @Override
-    public Employee queryAppointEmployee(String name) {
+    public Employee queryEmployeeByEmpNo(String name) {
+        return null;
+    }
+
+    @Override
+    public Employee queryEmployee(Employee employee) {
         return null;
     }
 }

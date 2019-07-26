@@ -6,124 +6,120 @@ import java.math.BigDecimal;
  *
  */
 public class Employee {
+    //人员编号
+    private String empNo;
 
-    private String employeeId;
-    private String fristName;
-    private int lastName;
+    //人员名称
+    private String empName;
+
+    //年龄
+    private int age;
+
+    //身份证号码
+    private String identityCard;
+
+    //户籍所下地
+    private String familyAddress;
+
+    //居住地址
+    private String liveAddress;
+
+    //联系电话
+    private String phone;
+
+    //邮箱
     private String email;
-    private String phoneNumber;
-    private String jobId;
-    private BigDecimal salary;
-    private BigDecimal commissionPct;
-    private String managerId;
-    private String departmentId;
 
-    public Employee(final String employeeId, final String fristName, final int lastName, final String email, final String phoneNumber, final String jobId, final BigDecimal salary, final BigDecimal commissionPct, final String managerId, final String departmentId) {
-        this.employeeId = employeeId;
-        this.fristName = fristName;
-        this.lastName = lastName;
+    public Employee() {
+        super();
+    }
+
+    public Employee(String empNo, String empName, int age, String identityCard, String liveAddress, String familyAddress, String phone, String email) {
+        this.empNo = empNo;
+        this.empName = empName;
+        this.age = age;
+        this.identityCard = identityCard;
+        this.liveAddress = liveAddress;
+        this.familyAddress = familyAddress;
+        this.phone = phone;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.jobId = jobId;
-        this.salary = salary;
-        this.commissionPct = commissionPct;
-        this.managerId = managerId;
-        this.departmentId = departmentId;
     }
 
-    public String getEmployeeId() {
-        return this.employeeId;
+    public String getEmpNo() {
+        return empNo;
     }
 
-    public void setEmployeeId(final String employeeId) {
-        this.employeeId = employeeId;
+    public void setEmpNo(String empNo) {
+        this.empNo = empNo;
     }
 
-    public String getFristName() {
-        return this.fristName;
+    public String getEmpName() {
+        return empName;
     }
 
-    public void setFristName(final String fristName) {
-        this.fristName = fristName;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
-    public int getLastName() {
-        return this.lastName;
+    public int getAge() {
+        return age;
     }
 
-    public void setLastName(final int lastName) {
-        this.lastName = lastName;
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getIdentityCard() {
+        return identityCard;
+    }
+
+    public void setIdentityCard(String identityCard) {
+        this.identityCard = identityCard;
+    }
+
+    public String getLiveAddress() {
+        return liveAddress;
+    }
+
+    public void setLiveAddress(String liveAddress) {
+        this.liveAddress = liveAddress;
+    }
+
+    public String getFamilyAddress() {
+        return familyAddress;
+    }
+
+    public void setFamilyAddress(String familyAddress) {
+        this.familyAddress = familyAddress;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
-    public void setEmail(final String email) {
+    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public void setPhoneNumber(final String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getJobId() {
-        return this.jobId;
-    }
-
-    public void setJobId(final String jobId) {
-        this.jobId = jobId;
-    }
-
-    public BigDecimal getSalary() {
-        return this.salary;
-    }
-
-    public void setSalary(final BigDecimal salary) {
-        this.salary = salary;
-    }
-
-    public BigDecimal getCommissionPct() {
-        return this.commissionPct;
-    }
-
-    public void setCommissionPct(final BigDecimal commissionPct) {
-        this.commissionPct = commissionPct;
-    }
-
-    public String getManagerId() {
-        return this.managerId;
-    }
-
-    public void setManagerId(final String managerId) {
-        this.managerId = managerId;
-    }
-
-    public String getDepartmentId() {
-        return this.departmentId;
-    }
-
-    public void setDepartmentId(final String departmentId) {
-        this.departmentId = departmentId;
     }
 
     @Override
     public String toString() {
-        return "ExpressBean{" +
-                "employeeId='" + employeeId + '\'' +
-                ", fristName='" + fristName + '\'' +
-                ", lastName=" + lastName +
+        return "Employee{" +
+                "empNo='" + empNo + '\'' +
+                ", empName='" + empName + '\'' +
+                ", age=" + age +
+                ", identityCard='" + identityCard + '\'' +
+                ", liveAddress='" + liveAddress + '\'' +
+                ", familyAddress='" + familyAddress + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", jobId='" + jobId + '\'' +
-                ", salary=" + salary +
-                ", commissionPct=" + commissionPct +
-                ", managerId='" + managerId + '\'' +
-                ", departmentId='" + departmentId + '\'' +
                 '}';
     }
 }

@@ -1,12 +1,11 @@
-package com.example.cloud.common.io;
+package com.example.cloud.server.po.employee;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
+import com.example.cloud.service.base.po.BasePO;
 
 /***
- *人员信息
+ *人员信息PO
  */
-public class Employee implements Serializable {
+public class EmployeePO extends BasePO{
 
     //人员编号
     private String empNo;
@@ -32,11 +31,11 @@ public class Employee implements Serializable {
     //邮箱
     private String email;
 
-    public Employee() {
+    public EmployeePO() {
         super();
     }
 
-    public Employee(String empNo, String empName, int age, String identityCard, String liveAddress, String familyAddress, String phone, String email) {
+    public EmployeePO(String empNo, String empName, int age, String identityCard, String liveAddress, String familyAddress, String phone, String email) {
         this.empNo = empNo;
         this.empName = empName;
         this.age = age;
@@ -113,7 +112,7 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "EmployeePO{" +
                 "empNo='" + empNo + '\'' +
                 ", empName='" + empName + '\'' +
                 ", age=" + age +

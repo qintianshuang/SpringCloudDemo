@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.cloud.server.mapper.employee.EmployeeDaoMapper">
+    <resultMap id="resultMap" type="com.example.cloud.server.po.employee.EmployeePO">
+        <result property="empNo" column="emp_no" jdbcType="VARCHAR"/>
+        <result property="empName" column="emp_name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="identityCard" column="identity_card" jdbcType="VARCHAR"/>
+        <result property="familyAddress" column="family_address" jdbcType="VARCHAR"/>
+        <result property="liveAddress" column="live_address" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="DATE"/>
+        <result property="updateTime" column="update_time" jdbcType="DATE"/>
+    </resultMap>
+
+
+    <select id="queryEmployeeList" resultMap="resultMap">
+		SELECT * FROM emp_info
+	</select>
+
+    <select id="queryEmployeeByName" resultMap="resultMap">
+		SELECT * FROM emp_info t
+        <where>
+            <!--
+                方法一: 直接使用 % 拼接字符串
+                注意:此处不能写成  "%#{name}%" ,#{name}就成了字符串的一部分,
+                会发生这样一个异常: The error occurred while setting parameters,
+                应该写成: "%"#{name}"%",即#{name}是一个整体,前后加上%
+            -->
+            <if test="empName != null and empName != ''">
+                t.emp_name like "%"#{empName}"%"
+            </if>
+        </where>
+	</select>
+
+    <insert id="insertEmployeeList" parameterType="java.util.List">
+        insert into emp_info (emp_no, emp_name,
+        age,identity_card,family_address,live_address,phone,email,create_time,update_time)
+        values
+        <foreach collection="employeeList" item="item" index="index" separator=",">
+            (
+            #{item.empNo,jdbcType=VARCHAR},
+            #{item.empName,jdbcType=VARCHAR},
+            #{item.age,jdbcType=INTEGER},
+            #{item.identityCard,jdbcType=VARCHAR},
+            #{item.familyAddress,jdbcType=VARCHAR},
+            #{item.liveAddress,jdbcType=VARCHAR},
+            #{item.phone,jdbcType=VARCHAR},
+            #{item.email,jdbcType=VARCHAR},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
+</mapper>

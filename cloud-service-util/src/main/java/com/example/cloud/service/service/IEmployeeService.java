@@ -1,15 +1,16 @@
 package com.example.cloud.service.service;
 
 import com.example.cloud.common.io.Employee;
-import com.example.cloud.common.io.ExpressBean;
 
 import java.util.List;
 
 public interface IEmployeeService {
 
-    List<Employee> queryEmployeeList();
+    List<Employee> queryEmployeeByName(String name);
 
-    void insertExpress(List<ExpressBean> expressBeans);
+    void insertEmployeeList(List<Employee> employeeList);
 
-    Employee queryAppointEmployee(String name);
+    Employee queryEmployeeByEmpNo(String empNo);
+
+    Employee queryEmployee(Employee employee);
 }

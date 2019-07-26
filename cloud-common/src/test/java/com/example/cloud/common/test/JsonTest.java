@@ -3,7 +3,6 @@ package com.example.cloud.common.test;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import com.example.cloud.common.io.ExpressBean;
 import com.example.cloud.common.util.JsonUtil;
 import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
@@ -47,28 +46,28 @@ public class JsonTest {
 //        }
     }
 
-    @Test
-    public void jsonToBeanTest(){
-        ExpressBean expressBean = new ExpressBean("123456789", "小春", 12, "外卖", "微课有限公司");
-        String s = JSONObject.toJSONString(expressBean);
-        System.out.println(s);
-//        ExpressBean parse = (ExpressBean)JSONObject.parse(s);
-        ExpressBean expressBean1 = JSONObject.parseObject(s, new TypeReference<ExpressBean>() {
-        });
-        System.out.println(expressBean1);
-        Class<ExpressBean> expressBeanClass = ExpressBean.class;
-        ExpressBean value = JsonTest.getValue(s,expressBeanClass);
-        System.out.println("value:" + value);
-        ExpressBean expressBean2 = JSONObject.parseObject(s, ExpressBean.class);
-        System.out.println(expressBean2);
-    }
-
-    public static <V> V getValue(String s,Class clazz) {
-        Object o = JSONObject.parseObject(s,clazz);
-//        System.out.println(v);
-//        v = JSONObject.parseObject(s, new TypeReference<V>() {
+//    @Test
+//    public void jsonToBeanTest(){
+//        ExpressBean expressBean = new ExpressBean("123456789", "小春", 12, "外卖", "微课有限公司");
+//        String s = JSONObject.toJSONString(expressBean);
+//        System.out.println(s);
+////        ExpressBean parse = (ExpressBean)JSONObject.parse(s);
+//        ExpressBean expressBean1 = JSONObject.parseObject(s, new TypeReference<ExpressBean>() {
 //        });
-        System.out.println(o);
-        return (V)o;
-    }
+//        System.out.println(expressBean1);
+//        Class<ExpressBean> expressBeanClass = ExpressBean.class;
+//        ExpressBean value = JsonTest.getValue(s,expressBeanClass);
+//        System.out.println("value:" + value);
+//        ExpressBean expressBean2 = JSONObject.parseObject(s, ExpressBean.class);
+//        System.out.println(expressBean2);
+//    }
+//
+//    public static <V> V getValue(String s,Class clazz) {
+//        Object o = JSONObject.parseObject(s,clazz);
+////        System.out.println(v);
+////        v = JSONObject.parseObject(s, new TypeReference<V>() {
+////        });
+//        System.out.println(o);
+//        return (V)o;
+//    }
 }
