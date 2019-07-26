@@ -16,4 +16,6 @@ public interface EmployeeDaoMapper {
     List<EmployeePO> queryEmployeeByName(@Param("empName") String empName);
 
     Integer insertEmployeeList(@Param("employeeList") List<Employee> employeeList);
+
+    Integer creatEmployee(EmployeePO employeePO);
 }

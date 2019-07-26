@@ -20,17 +20,23 @@ public class EmployeeController {
     @Autowired
     FeignEmployeeUI feignUI;
 
-    @ApiOperation(value = "根据名称查询指定人员信息", notes = "根据名称查询指定人员信息",produces="application/octet-stream")
+    @ApiOperation(value = "根据名称查询指定人员信息", notes = "根据名称查询指定人员信息", produces = "application/octet-stream")
     @GetMapping(value = "/queryEmployeeByName")
     public String queryEmployeeByName(@RequestParam String name) {
         return feignUI.queryEmployeeByName(name);
     }
 
-    @ApiOperation(value = "新增人员信息", notes = "新增人员信息",produces="application/octet-stream")
-    @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
+    @ApiOperation(value = "新增人员集合", notes = "新增人员集合", produces = "application/octet-stream")
+    @PostMapping(value = "/creatEmployeeList", consumes = "application/json")
     public String creatEmployeeList() {
         List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee("","小红",12,"420528199901172431","湖北省宜昌市长阳县","深圳市宝安区新安一路晶美花园","18665892257","2065114232@qq.com"));
+        employeeList.add(new Employee("", "小红", 12, "420528199901172431", "湖北省宜昌市长阳县", "深圳市宝安区新安一路晶美花园", "18665892257", "2065114232@qq.com"));
         return feignUI.creatEmployeeList(employeeList);
+    }
+
+    @ApiOperation(value = "新增人员信息", notes = "新增人员信息", produces = "application/octet-stream")
+    @PostMapping(value = "/creatEmployeeInfo", consumes = "application/json")
+    public String creatEmployeeInfo(@RequestBody Employee employee) {
+        return feignUI.creatEmployeeInfo(employee);
     }
 }

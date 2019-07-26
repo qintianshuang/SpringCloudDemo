@@ -105,4 +105,17 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Employee queryEmployee(Employee employee) {
         return null;
     }
+
+    @Override
+    public void creatEmployeeInfo(Employee employee) {
+        if(employee == null){
+            return;
+        }
+        employee.setEmpNo(RandomUtils.randomID());
+        EmployeePO employeePO = new EmployeePO();
+        BeanUtils.copyProperties(employee,employeePO);
+        //查出数据库中已经存在的信息
+        Integer index = employeeDaoMapper.creatEmployee(employeePO);
+        log.debug("index||" + index);
+    }
 }

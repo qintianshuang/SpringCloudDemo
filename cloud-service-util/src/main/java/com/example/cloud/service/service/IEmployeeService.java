@@ -13,4 +13,6 @@ public interface IEmployeeService {
     Employee queryEmployeeByEmpNo(String empNo);
 
     Employee queryEmployee(Employee employee);
+
+    void creatEmployeeInfo(Employee employee);
 }

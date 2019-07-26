@@ -54,4 +54,21 @@
             )
         </foreach>
     </insert>
+    <insert id="creatEmployee" parameterType="com.example.cloud.server.po.employee.EmployeePO">
+        insert into emp_info (emp_no, emp_name,
+        age,identity_card,family_address,live_address,phone,email,create_time,update_time)
+        values
+            (
+            #{empNo,jdbcType=VARCHAR},
+            #{empName,jdbcType=VARCHAR},
+            #{age,jdbcType=INTEGER},
+            #{identityCard,jdbcType=VARCHAR},
+            #{familyAddress,jdbcType=VARCHAR},
+            #{liveAddress,jdbcType=VARCHAR},
+            #{phone,jdbcType=VARCHAR},
+            #{email,jdbcType=VARCHAR},
+            now(),
+            now()
+            )
+    </insert>
 </mapper>

@@ -24,4 +24,6 @@ public interface FeignEmployeeUI {
     @PostMapping(value = "/creatEmployeeList",consumes = "application/json")
     String creatEmployeeList(@RequestBody List<Employee> expressBeans);
 
+    @PostMapping(value = "/creatEmployeeInfo", consumes = "application/json")
+    public String creatEmployeeInfo(@RequestBody Employee employee);
 }

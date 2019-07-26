@@ -31,4 +31,9 @@ public class EmployeeController {
     public void creatEmployeeList(@RequestBody List<Employee> employeeList) {
             empService.insertEmployeeList(employeeList);
     }
+
+    @PostMapping(value = "/creatEmployeeInfo", consumes = "application/json")
+    public void creatEmployeeInfo(@RequestBody Employee employee) {
+        empService.creatEmployeeInfo(employee);;
+    }
 }
