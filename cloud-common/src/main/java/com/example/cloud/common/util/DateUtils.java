@@ -1,5 +1,6 @@
-package com.example.cloud.common.util;
+package com.example.cloud.service.util;
 
+import com.example.cloud.common.config.Logger;
 import org.springframework.util.StringUtils;
 
 import java.text.ParseException;
@@ -11,6 +12,9 @@ import java.util.Date;
  * 日期工具类 默认使用 "yyyy-MM-dd HH:mm:ss" 格式化日期
  */
 public final class DateUtils {
+
+    private final static Logger log = Logger.getLogger(DateUtils.class);
+
     /**
      * 英文简写（默认）如：2010-12-01
      */
@@ -40,6 +44,7 @@ public final class DateUtils {
      * 获得默认的 date type
      */
     public static String getDateType() {
+        log.info("获得默认的 date type【" + FORMAT_YYYY_MM_DD_HH_MM_SS + "】");
         return FORMAT_YYYY_MM_DD_HH_MM_SS;
     }
 
@@ -48,7 +53,8 @@ public final class DateUtils {
      * @return
      */
     public static String getNow() {
-        return format(new Date());
+        String format = format(new Date());
+        return format;
     }
 
     /**
@@ -57,8 +63,9 @@ public final class DateUtils {
      * @return
      */
     public static String getNow(String format) {
-        String returnValue = format(new Date(), format);
-        return returnValue;
+        String timeStr = format(new Date(), format);
+        log.info("根据用户格式返回当前日期字符串【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -68,11 +75,12 @@ public final class DateUtils {
      * @return
      */
     public static String format(Date date) {
-        String returnValue = "";
+        String timeStr = "";
         if (date != null) {
-            returnValue = format(date, getDateType());
+            timeStr = format(date, getDateType());
         }
-        return returnValue;
+        log.info("使用预设格式格式化日期【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -83,12 +91,13 @@ public final class DateUtils {
      * @return
      */
     public static String format(Date date, String timeType) {
-        String returnValue = "";
+        String timeStr = "";
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(timeType);
-            returnValue = df.format(date);
+            timeStr = df.format(date);
         }
-        return (returnValue);
+        log.info("使用预设格式格式化日期【" + timeStr + "】");
+        return (timeStr);
     }
 
     /**
@@ -109,6 +118,7 @@ public final class DateUtils {
                 e.printStackTrace();
             }
         }
+        log.info("使用用户格式提取字符串日期【" + parse + "】");
         return parse;
     }
 
@@ -127,6 +137,7 @@ public final class DateUtils {
             cal.add(Calendar.MONTH, n);
             time = cal.getTime();
         }
+        log.info("在日期【" + date + "】上增加数【" + n + "】个整月为【" + time + "】");
         return time;
     }
 
@@ -145,6 +156,7 @@ public final class DateUtils {
             cal.add(Calendar.DATE, n);
             time = cal.getTime();
         }
+        log.info("在日期【" + date + "】上增加【" + n + "】个天数为【" + time + "】");
         return time;
     }
 
@@ -156,15 +168,16 @@ public final class DateUtils {
      * @return
      */
     public static String addDayToStr(Date date, int n, String format) {
-        String substring = "";
+        String timeStr = "";
         if (date != null) {
             SimpleDateFormat df = new SimpleDateFormat(format);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             cal.add(Calendar.DATE, n);
-            substring = df.format(cal.getTime());
+            timeStr = df.format(cal.getTime());
         }
-        return substring;
+        log.info("使用用户格式在日期【" + date + "】上增加【" + n + "】个天数为【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -173,8 +186,9 @@ public final class DateUtils {
     public static String getTimeString(String format) {
         SimpleDateFormat df = new SimpleDateFormat(format);
         Calendar calendar = Calendar.getInstance();
-        String formatString = df.format(calendar.getTime());
-        return formatString;
+        String timeStr = df.format(calendar.getTime());
+        log.info("使用用户格式获取时间戳【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -184,12 +198,13 @@ public final class DateUtils {
      * @return
      */
     public static String getYearNow(Date date) {
-        String substring = "";
+        String timeStr = "";
         if (date != null) {
             String format = format(date);
-            substring = format.substring(0, 4);
+            timeStr = format.substring(0, 4);
         }
-        return substring;
+        log.info("获取当前日期年份【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -199,12 +214,13 @@ public final class DateUtils {
      * @return
      */
     public static String getYearAndMonthNow(Date date) {
-        String substring = "";
+        String timeStr = "";
         if (date != null) {
             String format = format(date);
-            substring = format.substring(0, 7);
+            timeStr = format.substring(0, 7);
         }
-        return substring;
+        log.info("获取当前日期年份月份【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -214,15 +230,16 @@ public final class DateUtils {
      * @return
      */
     public static String getformatSubStr(Date date, String timeType, int index) {
-        String substring = "";
+        String timeStr = "";
         if (date != null) {
-            substring = format(date, timeType);
-            int strLength = getStrToArray(substring);
+            timeStr = format(date, timeType);
+            int strLength = getStrToArray(timeStr);
             if (index < strLength) {
-                substring = substring.substring(0, index);
+                timeStr = timeStr.substring(0, index);
             }
         }
-        return substring;
+        log.info("转化为没有符号的字符串时间为【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -232,16 +249,17 @@ public final class DateUtils {
      * @return
      */
     public static String getformatSubStr(String dateStr, String format, String timeType, int index) {
-        String formatString = "";
+        String timeStr = "";
         if (!StringUtils.isEmpty(dateStr)) {
             Date parse = parse(dateStr, format);
-            formatString = format(parse, timeType);
-            int strLength = getStrToArray(formatString);
+            timeStr = format(parse, timeType);
+            int strLength = getStrToArray(timeStr);
             if (index < strLength) {
-                formatString = formatString.substring(0, index);
+                timeStr = timeStr.substring(0, index);
             }
         }
-        return formatString;
+        log.info("转化为截取的字符串时间为【" + timeStr + "】");
+        return timeStr;
     }
 
     /**
@@ -260,6 +278,7 @@ public final class DateUtils {
             long t1 = c.getTime().getTime();
             time = (int) (t / 1000 - t1 / 1000) / 3600 / 24;
         }
+        log.info("按用户格式字符串距离今天的天数为【" + time + "】");
         return time;
     }
 
@@ -278,6 +297,7 @@ public final class DateUtils {
             long t1 = c.getTime().getTime();
             time = (int) (t / 1000 - t1 / 1000) / 3600 / 24;
         }
+        log.info("按用户格式字符串距离今天的天数为【" + time + "】");
         return time;
     }
 
@@ -311,6 +331,7 @@ public final class DateUtils {
                 e.printStackTrace();
             }
         }
+        log.info("获取指定日期的下个月第一天为【" + time + "】");
         return time;
     }
 
@@ -338,6 +359,7 @@ public final class DateUtils {
             calendar.set(Calendar.MILLISECOND, 0);
             time = sdf.format(calendar.getTime());
         }
+        log.info("获取指定日期的下个月第一天为【" + time + "】");
         return time;
     }
 
@@ -371,6 +393,7 @@ public final class DateUtils {
                 e.printStackTrace();
             }
         }
+        log.info("获取指定日期的下个月最后一天为【" + time + "】");
         return time;
     }
 
@@ -398,6 +421,7 @@ public final class DateUtils {
             calendar.set(Calendar.MILLISECOND, 0);
             time = sdf.format(calendar.getTime());
         }
+        log.info("获取指定日期的下个月最后一天为【" + time + "】");
         return time;
     }
 
@@ -431,6 +455,7 @@ public final class DateUtils {
                 e.printStackTrace();
             }
         }
+        log.info("获取指定日期的上个月第一天为【" + time + "】");
         return time;
     }
 
@@ -458,6 +483,7 @@ public final class DateUtils {
             calendar.set(Calendar.MILLISECOND, 0);
             time = sdf.format(calendar.getTime());
         }
+        log.info("获取指定日期的上个月第一天为【" + time + "】");
         return time;
     }
 
@@ -491,6 +517,7 @@ public final class DateUtils {
                 e.printStackTrace();
             }
         }
+        log.info("获取指定日期的上个月最后一天为【" + time + "】");
         return time;
     }
 
@@ -519,11 +546,12 @@ public final class DateUtils {
             calendar.set(Calendar.MILLISECOND, 0);
             time = sdf.format(calendar.getTime());
         }
+        log.info("获取指定日期的上个月最后一天为【" + time + "】");
         return time;
     }
 
     /***
-     * 获取指定时间与当前时间的差
+     * 获取指定时间指定格式与当前时间的差
      * @param dateStr
      * @param format
      * @return
@@ -543,6 +571,7 @@ public final class DateUtils {
             long sysTime = date.getTime();
             outTime = sysTime - comTime;
         }
+        log.info("获取指定时间指定格式与当前时间的差为【" + outTime + "】");
         return outTime;
     }
 
@@ -559,6 +588,7 @@ public final class DateUtils {
             long sysTime = date.getTime();
             outTime = sysTime - comTime;
         }
+        log.info("获取指定时间与当前时间的差为【" + outTime + "】");
         return outTime;
     }
 
@@ -585,6 +615,7 @@ public final class DateUtils {
             long comTimeTwo = parseTwo.getTime();
             outTime = comTimeTwo - comTimeOne;
         }
+        log.info("获取指定时间与指定时间的差为【" + outTime + "】");
         return outTime;
     }
 
@@ -600,6 +631,34 @@ public final class DateUtils {
             length = bytes.length;
         }
         return length;
+    }
+
+    /***
+     * 获取当前日期所在月最后一天
+     * @param date
+     * @param format
+     * @return
+     */
+    public static String getNowToLastDay(Date date, String format) {
+        String time = "";
+        if (date != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DATE));
+            calendar.add(Calendar.MONTH, 0);
+            //将小时至0
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            //将分钟至0
+            calendar.set(Calendar.MINUTE, 0);
+            //将秒至0
+            calendar.set(Calendar.SECOND, 0);
+            //将毫秒至0
+            calendar.set(Calendar.MILLISECOND, 0);
+            time = sdf.format(calendar.getTime());
+        }
+        log.info("获取当前日期所在月最后一天为【" + time + "】");
+        return time;
     }
 
     public static void main(String[] args) {

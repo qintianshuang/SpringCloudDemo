@@ -1,18 +1,20 @@
 package com.example.cloud.common.test;
 
-import com.example.cloud.common.util.DateUtils;
+import com.example.cloud.common.config.Logger;
+import com.example.cloud.common.util.CompanyDateUtil;
+import com.example.cloud.service.util.DateUtils;
 import org.junit.Test;
 
 import java.util.Date;
 
 public class DateTest {
 
-
+    private final static Logger log = Logger.getLogger(DateTest.class);
 
     @Test
-    public void dateTestOne(){
+    public void dateTestOne() {
 
-        Date date = new Date();
+//        Date date = new Date();
 
 //        //获得默认的 date type
 //        String datePattern = DateUtils.getDateType();
@@ -74,50 +76,50 @@ public class DateTest {
 //        int j = DateUtils.countDaysToNow(DateUtils.addDayToDate(date, 1));
 //        System.out.println("按默认格式的字符串距离今天的天数Date||==========" +j);
 
-        System.out.println();
-        System.out.println();
-        //获取指定日期的下个月第一天
-        String yyyyMMddHHmmss = DateUtils.getNextMonthToFristDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期的下个月第一天" + yyyyMMddHHmmss);
-
-        String nextMonthToFristDay = DateUtils.getNextMonthToFristDay(new Date(), "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期Date的下个月第一天||====" + yyyyMMddHHmmss);
-
-        System.out.println();
-        System.out.println();
-
-        //获取指定日期的下个月最后一天
-        String nextMonthToLastDay = DateUtils.getNextMonthToLastDay("2019-07-07 23:48:00", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期的下个月最后一天" + nextMonthToLastDay);
-
-        //获取指定日期的下个月最后一天
-        String nextMonthToLastDay1 = DateUtils.getNextMonthToLastDay(new Date(), "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期Date的下个月最后一天||====" + nextMonthToLastDay1);
-
-        System.out.println();
-        System.out.println();
-
-        //获取指定日期的上个月第一天
-        String lastMonthToFristDay = DateUtils.getLastMonthToFristDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期的上个月第一天" + lastMonthToFristDay);
-
-        //获取指定日期的上个月第一天
-        String nextMonthToFristDay1 = DateUtils.getLastMonthToFristDay(new Date(), "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期Date的上个月第一天||====" + nextMonthToFristDay1);
-
-        System.out.println();
-        System.out.println();
-
-        //获取指定日期的上个月最后一天
-        String lastMonthToLastDay = DateUtils.getLastMonthToLastDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期的上个月最后一天" + lastMonthToLastDay);
-
-        //获取指定日期的上个月第一天
-        String lastMonthToLastDay1 = DateUtils.getLastMonthToLastDay(new Date(), "yyyy-MM-dd HH:mm:ss");
-        System.out.println("获取指定日期Date的上个月最后一天||====" + lastMonthToLastDay1);
-
-        System.out.println();
-        System.out.println();
+//        System.out.println();
+//        System.out.println();
+//        //获取指定日期的下个月第一天
+//        String yyyyMMddHHmmss = DateUtils.getNextMonthToFristDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期的下个月第一天" + yyyyMMddHHmmss);
+//
+//        String nextMonthToFristDay = DateUtils.getNextMonthToFristDay(new Date(), "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期Date的下个月第一天||====" + yyyyMMddHHmmss);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        //获取指定日期的下个月最后一天
+//        String nextMonthToLastDay = DateUtils.getNextMonthToLastDay("2019-07-07 23:48:00", "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期的下个月最后一天" + nextMonthToLastDay);
+//
+//        //获取指定日期的下个月最后一天
+//        String nextMonthToLastDay1 = DateUtils.getNextMonthToLastDay(new Date(), "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期Date的下个月最后一天||====" + nextMonthToLastDay1);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        //获取指定日期的上个月第一天
+//        String lastMonthToFristDay = DateUtils.getLastMonthToFristDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期的上个月第一天" + lastMonthToFristDay);
+//
+//        //获取指定日期的上个月第一天
+//        String nextMonthToFristDay1 = DateUtils.getLastMonthToFristDay(new Date(), "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期Date的上个月第一天||====" + nextMonthToFristDay1);
+//
+//        System.out.println();
+//        System.out.println();
+//
+//        //获取指定日期的上个月最后一天
+//        String lastMonthToLastDay = DateUtils.getLastMonthToLastDay("2019-07-07 08:10:50", "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期的上个月最后一天" + lastMonthToLastDay);
+//
+//        //获取指定日期的上个月第一天
+//        String lastMonthToLastDay1 = DateUtils.getLastMonthToLastDay(new Date(), "yyyy-MM-dd HH:mm:ss");
+//        System.out.println("获取指定日期Date的上个月最后一天||====" + lastMonthToLastDay1);
+//
+//        System.out.println();
+//        System.out.println();
 
 //        //获取指定时间与当前时间的差
 //        long mss = DateUtils.getTimePkNowToMillis("2019-07-07 23:48:00", "yyyy-MM-dd HH:mm:ss");
@@ -153,5 +155,14 @@ public class DateTest {
 //        //转化为没有符号的字符串时间
 //        String s3 = DateUtils.getformatSubStr("2019-07-07 23:48:00", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd",9);
 //        System.out.println("转化为没有符号的字符串时间||" + s3);
+    }
+
+    @Test
+    public void dateTestNowToLastDay() {
+        Date date2 = DateUtils.addMonthToDate(new Date(), 8);
+        log.debug("当前的时间DATE" + date2);
+        String yyyyMMddHHmmssS = DateUtils.getNow("yyyyMMdd");
+        String lastDayOfMonth = CompanyDateUtil.getLastDayOfMonth(yyyyMMddHHmmssS, "yyyyMMdd", "yyyyMMdd");
+        String yyyyMMdd = DateUtils.getNowToLastDay(date2, "yyyyMMdd");
     }
 }
