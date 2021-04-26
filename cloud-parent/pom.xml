@@ -34,7 +34,7 @@
         <swagger2.version>2.5.0</swagger2.version>
         <fastjson.version>1.2.41</fastjson.version>
         <javax.servlet.version>3.1.0</javax.servlet.version>
-        <commons-io.version>2.5</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-fileupload.version>1.2.2</commons-fileupload.version>
     </properties>
     <dependencyManagement>
